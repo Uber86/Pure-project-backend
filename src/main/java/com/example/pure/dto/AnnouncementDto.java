@@ -1,43 +1,32 @@
-package com.example.pure.model;
+package com.example.pure.dto;
 
-import jakarta.persistence.*;
+import com.example.pure.model.User;
+import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-/**
- * Class Announcement модель ленты объявлении
- */
-@Entity
-@Table(name = "announcement")
-public class Announcement {
+public class AnnouncementDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
     private User users;
 
     private String title;
 
-    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @PrePersist
-    public void prePersist() {
-        createdAt = LocalDateTime.now();
+    public AnnouncementDto() {
     }
 
-    public Announcement() {
-    }
-
-    public Announcement(Long id, User users, String title,
-                        String description, LocalDateTime createdAt) {
+    public AnnouncementDto(Long id, User users, String title,
+                           String description, LocalDateTime createdAt) {
         this.id = id;
         this.users = users;
         this.title = title;

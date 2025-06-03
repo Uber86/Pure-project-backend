@@ -1,45 +1,32 @@
-package com.example.pure.model;
+package com.example.pure.dto;
 
-import jakarta.persistence.*;
+import com.example.pure.model.Chat;
+import com.example.pure.model.User;
+import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-/**
- * Class Message модель обмена сообщениями между пользователями
- */
-@Entity
-@Table(name = "message")
-public class Message {
+public class MessageDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_id", nullable = false)
     private Chat chat;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender_id")
     private User sender;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Column(name = "timestamp")
     private LocalDateTime localDateTime;
 
-    @PrePersist
-    public void prePersist() {
-        localDateTime = LocalDateTime.now();
+    public MessageDto() {
     }
 
-    public Message() {
-    }
-
-    public Message(Long id, Chat chat, User sender,
-                   String content, LocalDateTime localDateTime) {
+    public MessageDto(Long id, Chat chat, User sender,
+                      String content, LocalDateTime localDateTime) {
         this.id = id;
         this.chat = chat;
         this.sender = sender;

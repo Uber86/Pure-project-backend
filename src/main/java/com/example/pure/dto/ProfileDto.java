@@ -1,52 +1,32 @@
-package com.example.pure.model;
+package com.example.pure.dto;
 
-import com.example.pure.dto.Search;
-import com.example.pure.dto.Temptation;
+import com.example.pure.model.User;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Set;
 
-/**
- * Class Profile  расширенная модель user
- */
-@Entity
-@Table(name = "profile")
-public class Profile {
+public class ProfileDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String bio;
 
-    @ElementCollection
-    @CollectionTable(name = "profile_image",
-            joinColumns = @JoinColumn(name = "profile_id"))
-    @Column(name = "image_url")
     private List<String> image;
 
-    @ElementCollection(targetClass = Temptation.class)
-    @CollectionTable(name = "profile_temptation",
-            joinColumns = @JoinColumn(name = "profile_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "temptation")
     private Set<Temptation> temptation;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "search")
     private Search search;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Profile() {
+    public ProfileDto() {
     }
 
-    public Profile(Long id, String bio, List<String> image,
-                   Set<Temptation> temptation, Search search, User user) {
+    public ProfileDto(Long id, String bio, List<String> image,
+                      Set<Temptation> temptation, Search search,
+                      User user) {
         this.id = id;
         this.bio = bio;
         this.image = image;

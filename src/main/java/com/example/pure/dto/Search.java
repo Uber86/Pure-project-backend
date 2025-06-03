@@ -1,5 +1,8 @@
 package com.example.pure.dto;
 
+/**
+ * Enum Search что ищет пользователь
+ */
 public enum Search {
 
     NO_OBLIGATION,
@@ -8,6 +11,6 @@ public enum Search {
 
     VIRT,
 
-    EVERYTHING_AT_ONCE;
+    EVERYTHING_AT_ONCE
 
 }

@@ -1,33 +1,23 @@
-package com.example.pure.model;
+package com.example.pure.dto;
 
-import jakarta.persistence.*;
+import com.example.pure.model.Message;
+import com.example.pure.model.User;
 
 import java.util.List;
 import java.util.Set;
 
-/**
- * Class Chat модель общего чата с пользователем
- */
-@Entity
-@Table(name = "chat")
-public class Chat {
+public class ChatDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "chat_participants", joinColumns = @JoinColumn(name = "chat_id"),
-    inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> participants;
 
-    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     private List<Message> message;
 
-    public Chat() {
+    public ChatDto() {
     }
 
-    public Chat(Long id, Set<User> participants, List<Message> message) {
+    public ChatDto(Long id, Set<User> participants, List<Message> message) {
         this.id = id;
         this.participants = participants;
         this.message = message;
