@@ -16,8 +16,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
     private String name;
@@ -31,12 +33,18 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Profile profile;
 
+    private Double latitude;
+
+    private Double longitude;
+
+    private boolean googleAccountLinked;
+
     public User() {
     }
 
     public User(Long id, String email, String password,
-                String name, LocalDate birthday, Sex sex,
-                Profile profile) {
+                String name, LocalDate birthday, Sex sex, Profile profile,
+                Double latitude, Double longitude, boolean googleAccountLinked) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -44,6 +52,9 @@ public class User {
         this.birthday = birthday;
         this.sex = sex;
         this.profile = profile;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.googleAccountLinked = googleAccountLinked;
     }
 
     public Long getId() {
@@ -100,5 +111,29 @@ public class User {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public boolean isGoogleAccountLinked() {
+        return googleAccountLinked;
+    }
+
+    public void setGoogleAccountLinked(boolean googleAccountLinked) {
+        this.googleAccountLinked = googleAccountLinked;
     }
 }

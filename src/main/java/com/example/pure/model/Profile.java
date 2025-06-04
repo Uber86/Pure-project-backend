@@ -42,17 +42,21 @@ public class Profile {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Column(name= "height")
+    private Integer height;
+
     public Profile() {
     }
 
-    public Profile(Long id, String bio, List<String> image,
-                   Set<Temptation> temptation, Search search, User user) {
+    public Profile(Long id, String bio, List<String> image, Set<Temptation> temptation,
+                   Search search, User user, Integer height) {
         this.id = id;
         this.bio = bio;
         this.image = image;
         this.temptation = temptation;
         this.search = search;
         this.user = user;
+        this.height = height;
     }
 
     public Long getId() {
@@ -101,5 +105,13 @@ public class Profile {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 }
