@@ -27,4 +27,4 @@ public class MessageController {
         return ResponseEntity.ok(messageService.sendMessage(chatId, dto));
     }
 }
-}
+

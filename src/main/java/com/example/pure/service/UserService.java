@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper mapper;
+    private final SecurityService securityService;
 
-    public UserService(UserRepository userRepository, UserMapper mapper) {
+    public UserService(UserRepository userRepository, UserMapper mapper, SecurityService securityService) {
         this.userRepository = userRepository;
         this.mapper = mapper;
+        this.securityService = securityService;
     }
 
     public UserDto getUserById(Long id) {
@@ -23,12 +25,12 @@ public class UserService {
         return mapper.toDto(user);
     }
 
-    /** Геолокация
-    public UserDto getUserLocation(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
-        return new UserDto(user.getLatitude(), user.getLongitude());
+    public UserDto updateLocation(Double latitude, Double longitude) {
+        User user = securityService.getCurrentUser();
+        user.setLatitude(latitude);
+        user.setLongitude(longitude);
+        User savedUser = userRepository.save(user);
+        return mapper.toDto(savedUser);
     }
-     **/
 
 }

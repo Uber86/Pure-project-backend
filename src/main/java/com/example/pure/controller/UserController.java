@@ -1,31 +1,30 @@
 package com.example.pure.controller;
 
+import com.example.pure.dto.UserDto;
 import com.example.pure.mapper.UserMapper;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.pure.model.User;
+import com.example.pure.service.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
+    private final UserService userService;
 
-    private final UserMapper userMapper;
-
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userMapper = userMapper;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(userMapper.toDto(user));
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PutMapping("/location")
-    public ResponseEntity<UserDTO> updateLocation(@RequestBody LocationDTO locationDTO) {
-        User updated = userService.updateLocation(locationDTO);
-        return ResponseEntity.ok(userMapper.toDto(updated));
+    public ResponseEntity<UserDto> updateLocation(@RequestBody Double latitude,@RequestBody Double longitude) {
+        return ResponseEntity.ok(userService.updateLocation(latitude, longitude));
     }
-}
+
 }
