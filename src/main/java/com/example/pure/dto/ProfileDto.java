@@ -21,18 +21,29 @@ public class ProfileDto {
 
     private User user;
 
+    private Integer height;
+
     public ProfileDto() {
     }
 
     public ProfileDto(Long id, String bio, List<String> image,
                       Set<Temptation> temptation, Search search,
-                      User user) {
+                      User user,Integer height) {
         this.id = id;
         this.bio = bio;
         this.image = image;
         this.temptation = temptation;
         this.search = search;
         this.user = user;
+        this.height = height;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 
     public Long getId() {
