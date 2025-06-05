@@ -46,7 +46,7 @@ public class MessageService {
 
     public List<MessageDto> getMessages(Long chatId) {
         checkUserAccess(chatId);
-        List<Message> messages = messageRepository.findByChatIdOrderByTimestampAsc(chatId);
+        List<Message> messages = messageRepository.findByChatIdOrderByLocalDateTimeAsc(chatId);
         return messageMapper.toDtoList(messages);
     }
 

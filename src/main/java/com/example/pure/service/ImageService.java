@@ -1,6 +1,7 @@
 package com.example.pure.service;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +11,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 /**
@@ -19,8 +21,8 @@ import java.util.UUID;
 public class ImageService {
     private final Path uploadDir;
 
-    public ImageService(Path uploadDir) {
-        this.uploadDir = uploadDir;
+    public ImageService(@Value("${app.upload.dir:upload-dir}") String uploadDir) {
+        this.uploadDir = Paths.get(uploadDir);
     }
 
     public String saveImage(MultipartFile file) {

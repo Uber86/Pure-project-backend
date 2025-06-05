@@ -41,7 +41,9 @@ public class ChatService {
 
     public List<Chat> getMyChats() {
         Long currentUserId = securityService.getCurrentUserId();
-        return chatRepository.findByParticipantsContaining(currentUserId);
+        User currentUser = userRepository.findById(currentUserId)
+                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+        return chatRepository.findByParticipantsContaining(currentUser);
     }
 }
 

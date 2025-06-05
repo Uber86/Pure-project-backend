@@ -16,17 +16,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository repository;
 
-
     public CustomOAuth2UserService(UserRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public OAuth2User loadUser (OAuth2UserRequest userRequest)
-            throws OAuth2AuthenticationException{
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
         String email = oAuth2User.getAttribute("email");
-        repository.findByEmail(email).orElseGet(()->{
+        repository.findByEmail(email).orElseGet(() -> {
             User newUser = new User();
             newUser.setEmail(email);
             newUser.setName(oAuth2User.getAttribute("name"));
